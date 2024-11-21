@@ -17,7 +17,7 @@ public class Authentication {
     }
 
     private void loadUsers() {
-        URL resource = getClass().getResource("src/user.txt");
+        URL resource = getClass().getResource("/user.txt");
 
         if (resource != null) {
             try (InputStream inputStream = resource.openStream();
@@ -80,13 +80,12 @@ public class Authentication {
         for (User user : users) {
             if (user.getEmail().equals(email)) {
                 System.out.println("Sinh viên với email này đã tồn tại.");
-                System.out.println("Đường dẫn làm việc hiện tại: " + System.getProperty("user.dir"));
                 return;
             }
         }
         User newUSer = new User(code, name, birthday, gender, address, email, password);
         users.add(newUSer);
-        URL resource = getClass().getClassLoader().getResource("/user.txt");
+        URL resource = getClass().getClassLoader().getResource("user.txt");
         if (resource != null) {
             String filePath = resource.getPath();
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {
