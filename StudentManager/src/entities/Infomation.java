@@ -6,13 +6,44 @@ import java.util.List;
 public abstract class Infomation {
 
     protected String code;
-
     protected String name;
     protected String birthDay;
     protected String gender;
     protected String address;
     protected String email;
     protected String password;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBirthDay(String birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getBirthDay() {
         return birthDay;
@@ -50,14 +81,6 @@ public abstract class Infomation {
 
     public boolean login(String email, String password) {
         return this.email.equals(email) && this.password.equals(password);
-    }
-    public static Infomation login(String email, String password, List<Infomation> list) {
-        for (Infomation infomation : list) {
-            if (infomation.email.equals(email) && infomation.password.equals(password)) {
-                return infomation;
-            }
-        }
-        return null;
     }
 
 }

@@ -1,2 +1,0 @@
-a,a,2002-12-13,Nam,SG,a@gmail.com,123
-b,b,2015-12-9,Nux,HCM,b@gmail.com,456
