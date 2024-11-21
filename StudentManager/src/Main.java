@@ -1,9 +1,8 @@
-import Service.School;
+import Service.SystemService;
 
 public class Main {
     public static void main(String[] args) {
-        School s = new School();
-
+        SystemService s = new SystemService();
         s.start();
     }
 }
