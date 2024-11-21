@@ -1,8 +1,9 @@
-import Service.StudentManager;
+import Service.School;
 
 public class Main {
     public static void main(String[] args) {
-        StudentManager s = new StudentManager();
+        School s = new School();
+
         s.start();
     }
 }
