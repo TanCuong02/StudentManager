@@ -1,5 +1,6 @@
 package Service;
 
+import entities.Role;
 import entities.Subject;
 import entities.User;
 
@@ -21,9 +22,8 @@ public class Menu {
     public void teacherMenu(){
         Scanner sc = new Scanner(System.in);
         int chon = 0;
-
         do{
-            System.out.println("Chọn chức năng: ");
+            System.out.println("\tDANH SÁCH LỰA CHỌN CHỨC NĂNG CỦA GIÁO VIÊN\t");
             System.out.println("1. Xem danh sách học sinh");
             System.out.println("2. Thêm mới học sinh");
             System.out.println("3. Cập nhật thông tin học sinh");
@@ -31,6 +31,7 @@ public class Menu {
             System.out.println("5. Thêm môn học");
             System.out.println("6. Thêm điểm cho học sinh");
             System.out.println("7. Thoát");
+            System.out.print("Chọn chức năng: ");
             chon = sc.nextInt();
             sc.nextLine();
             switch (chon){
@@ -41,32 +42,82 @@ public class Menu {
                     break;
                 case 2:
                     System.out.println("Thêm mới học sinh");
-                    System.out.println("n");
+                    System.out.print("Nhập mã học sinh:");
+                    String newCode=sc.nextLine();
+                    System.out.print("Nhập họ và tên học sinh:");
+                    String newFullName=sc.nextLine();
+                    System.out.print("Nhập ngày tháng năm sinh(YYYY-MM-DD):");
+                    String newBirthDay=sc.nextLine();
+                    System.out.print("Nhập giới tính:");
+                    String newGender=sc.nextLine();
+                    System.out.print("Nhập địa chỉ:");
+                    String newAddress=sc.nextLine();
+                    System.out.print("Nhập email:");
+                    String newEmail=sc.nextLine();
+                    System.out.print("Nhập mật khẩu:");
+                    String newPassword=sc.nextLine();
+                    System.out.println("Đã thêm học sinh mới!!!");
+                    User newUser  = new User(newCode, newFullName, newBirthDay, newGender, newAddress, newEmail, newPassword, Role.Student);
+
+                    // Add the new user to the UserService
+                    userService.addStudent(newUser );
                     break;
                 case 3:
                     System.out.println("Cập nhật thông tin học sinh");
-                    // Gọi phương thức cập nhật thông tin học sinh
+                    System.out.print("Nhập mã học sinh cần cập nhật:");
+                    String updateCode=sc.nextLine();
+                    boolean updated=false;
+                    for(User user:users)
+                    {
+                        if(user.getCode().equals(updateCode)&&user.getRole()== Role.Student)
+                        {
+                            System.out.print("Nhập mã mới:");
+                            user.setCode(sc.nextLine());
+                            System.out.print("Nhập tên mới:");
+                            user.setName(sc.nextLine());
+                            System.out.print("Nhập ngày tháng năm sinh mới(YYYY-MM-DD):");
+                            user.setBirthDay(sc.nextLine());
+                            System.out.print("Nhập giới tính mới:");
+                            user.setGender(sc.nextLine());
+                            System.out.print("Nhập địa chỉ mới:");
+                            user.setAddress(sc.nextLine());
+                            System.out.print("Nhập email mới:");
+                            user.setEmail(sc.nextLine());
+                            System.out.print("Nhập mật khẩu mới:");
+                            user.setPassword(sc.nextLine());
+                            updated=true;
+                            System.out.println("Thông tin học sinh đã được cập nhật!!!");
+                            break;
+                        }
+                    }
+                    if(!updated)
+                    {
+                        System.out.println("Không tìm thấy học sinh với mã đã nhập!!!");
+                    }
                     break;
                 case 4:
                     System.out.println("Xóa học sinh");
-                    // Gọi phương thức xóa học sinh
+                    System.out.print("Nhập mã học sinh cần xóa:");
+                    String studentCode=sc.nextLine();
+                    userService.deleteStudent(studentCode);
                     break;
                 case 5:
                     subjectService.addSubject();
                     break;
                 case 6:
-                    System.out.println("Nhập mã học sinh");
+                    System.out.print("Nhập mã học sinh:");
                     String code = sc.nextLine();
-                    System.out.println("Nhập mã môn");
+                    System.out.print("Nhập mã môn:");
                     String subCode = sc.nextLine();
-                    System.out.println("Nhập điểm");
+                    System.out.print("Nhập điểm môn:");
                     float score = sc.nextFloat();
                     sc.nextLine();
                     subjectService.assignScore (subjectService.getSubjectByCode(subCode), userService.loadUserByCode(code), score);
+                    break;
                 case 7:
                     break;
                 default:
-                    System.out.println("Không hợp lệ");
+                    System.out.println("Không hợp lệ.Vui lòng chọn lại!!!");
                     break;
             }
         }while (chon != 7);
