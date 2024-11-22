@@ -11,9 +11,11 @@ import java.util.Scanner;
 
 public class Authentication {
 
-    List<User> users;
+
 
     public  void Login(){
+        List<User> users = new ArrayList<>();
+        users.add(new User("S1","TC", "2002-12-13","Nam","HCM","a@gmail.com","123", Role.valueOf("Student")));
             Scanner scanner = new Scanner(System.in);
             System.out.print("Nhập email: ");
             String inputEmail = scanner.nextLine();
