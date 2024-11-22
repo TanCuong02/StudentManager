@@ -1,0 +1,66 @@
+package services;
+
+import entities.Subject;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class SubjectService {
+    private List<Subject> subjects;
+
+    // Constructor to initialize the subjects list
+    public SubjectService() {
+        subjects = new ArrayList<>();
+    }
+
+    // Method to add a new subject
+    public void addSubject() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Thêm môn học mới:");
+        System.out.print("Mã môn học: ");
+        String subjectCode = scanner.nextLine();
+        System.out.print("Tên môn học: ");
+        String subjectName = scanner.nextLine();
+
+        // Check if the subject already exists
+        for (Subject subject : subjects) {
+            if (subject.getCode().equals(subjectCode)) {
+                System.out.println("Môn học với mã " + subjectCode + " đã tồn tại.");
+                return;
+            }
+        }
+
+        // Add the new subject to the list
+        Subject newSubject = new Subject(subjectCode, subjectName);
+        subjects.add(newSubject);
+        System.out.println("Đã thêm môn học: " + subjectName + " (Mã: " + subjectCode + ")");
+    }
+
+    // Method to assign a score to a student for a specific subject
+    public void assignScore(String subjectCode, String studentCode, float grade) {
+        for (Subject subject : subjects) {
+            if (subject.getCode().equals(subjectCode)) {
+                subject.addOrUpdateScore(studentCode, grade);
+                System.out.println("Đã thêm hoặc cập nhật điểm cho sinh viên " + studentCode + " trong môn học " + subjectCode);
+                return;
+            }
+        }
+        System.out.println("Môn học với mã " + subjectCode + " không tồn tại.");
+    }
+
+    // Method to view a student's score for a specific subject
+    public void viewScore(String subjectCode, String studentCode) {
+        for (Subject subject : subjects) {
+            if (subject.getCode().equals(subjectCode)) {
+                Float score = subject.viewScore(studentCode);
+                if (score != null) {
+                    System.out.println("Điểm của sinh viên " + studentCode + " trong môn học " + subjectCode + ": " + score);
+                } else {
+                    System.out.println("Sinh viên " + studentCode + " chưa có điểm trong môn học này.");
+                }
+                return;
+            }
+        }
+       
+    }
+}
