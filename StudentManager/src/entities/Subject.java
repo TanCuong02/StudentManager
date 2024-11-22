@@ -1,15 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entities;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author ADMIN
- */
 public class Subject {
     private String code; // Subject code
     private String name; // Subject name
@@ -54,9 +47,14 @@ public class Subject {
         return false;
     }
 
+    public Map<String, Float> getAllScores() {
+        return studentScores;
+    }
+
+
     @Override
     public String toString() {
         return "Mã môn học: " + code + ", Tên môn học: " + name + ", Số sinh viên: " + studentScores.size();
     }
-    
+
 }

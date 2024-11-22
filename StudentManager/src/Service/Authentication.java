@@ -1,6 +1,8 @@
 package Service;
 
+import entities.Infomation;
 import entities.Role;
+import entities.Subject;
 import entities.User;
 
 import java.io.*;
@@ -11,40 +13,62 @@ import java.util.Scanner;
 
 public class Authentication {
 
+    private List<User> users;
+
+    Menu menu;
+
+    private SubjectService subjectService;
+    private UserService userService;
+
+    public Authentication(SubjectService subjectService) {
+        users = new ArrayList<>();
+        users.add(new User("HS1", "Student", "2002-12-13", "Nữ", "HCM", "s@gmail.com", "123", Role.Student));
+        users.add(new User("GV2", "Teacher", "2001-11-11", "Nam", "HN", "t@gmail.com", "123", Role.Teacher));
+        users.add(new User("HS2", "Minh", "2004-12-13", "Nam", "Bình Chánh", "minh@gmail.com", "123", Role.Student));
+        users.add(new User("GV2", "Hoàng", "2005-11-11", "Nam", "Quận 12", "hoang@gmail.com", "123", Role.Teacher));
+        this.subjectService = subjectService;
+        this.userService = new UserService(users);
+        this.menu = new Menu(users);
+
+    }
+
 
 
     public  void Login(){
-        List<User> users = new ArrayList<>();
-        users.add(new User("S1","TC", "2002-12-13","Nam","HCM","a@gmail.com","123", Role.valueOf("Student")));
+
             Scanner scanner = new Scanner(System.in);
             System.out.print("Nhập email: ");
             String inputEmail = scanner.nextLine();
             System.out.print("Nhập mật khẩu: ");
             String inputPassword = scanner.nextLine();
-            boolean logged = false;
+             User logged = null;
             for (User user : users) {
                 if (user.login(inputEmail, inputPassword)) {
-                    logged = true;
-                    System.out.println("Đăng nhập thành công!");
-                    switch (user.getRole()) {
-                        case Student:
-                            System.out.println("Welcome " + user.getName());
-                            //xemDiem
-                            break;
-                        case Teacher:
-                            System.out.println("Welcome " + user.getName());
-
-                            break;
-                        default:
-                            System.out.println("Error!!!");
-                            break;
-                    }
+                    logged = user;
                 }
             }
-            if(!logged){
-                System.out.println("Đăng nhập thất bại. Email hoặc mật khẩu không đúng.");
+
+            if(logged != null){
+                System.out.println("Đăng nhập thành công!");
+                switch (logged.getRole()) {
+                    case Student:
+                        System.out.println("Welcome " + logged.getName());
+                        subjectService.viewAllScores(logged.getCode());
+                        break;
+                    case Teacher:
+                        System.out.println("Welcome " + logged.getName());
+                        menu.teacherMenu();
+                        break;
+                    default:
+                        System.out.println("Error!!!");
+                        break;
+                }
+            }else{
+                System.out.println("Đăng nhập không thành công!");
+                Login();
             }
 
     }
+
 
 }
