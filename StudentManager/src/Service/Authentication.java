@@ -45,6 +45,7 @@ public class Authentication {
             for (User user : users) {
                 if (user.login(inputEmail, inputPassword)) {
                     logged = user;
+                    break;
                 }
             }
 
