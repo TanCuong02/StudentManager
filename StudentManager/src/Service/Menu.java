@@ -72,5 +72,4 @@ public class Menu {
         }while (chon != 7);
 
     }
-public void Diem(){}
 }
