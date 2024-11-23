@@ -4,9 +4,7 @@ import entities.Role;
 import entities.Subject;
 import entities.User;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class SubjectService {
     private List<Subject> subjects;
@@ -28,14 +26,12 @@ public class SubjectService {
 
     // Method to add a new subject
     public void addSubject() {
-
         Scanner scanner = new Scanner(System.in);
         System.out.println("Thêm môn học mới:");
         System.out.print("Mã môn học: ");
         String subjectCode = scanner.nextLine();
         System.out.print("Tên môn học: ");
         String subjectName = scanner.nextLine();
-
         // Check if the subject already exists
         for (Subject subject : subjects) {
             if (subject.getCode().equals(subjectCode)) {
@@ -43,7 +39,6 @@ public class SubjectService {
                 return;
             }
         }
-
         // Add the new subject to the list
         Subject newSubject = new Subject(subjectCode, subjectName);
         subjects.add(newSubject);
@@ -53,7 +48,7 @@ public class SubjectService {
     // Method to assign a score to a student for a specific subject
     public void assignScore(String subjectCode, String studentCode, float grade) {
         List<User> users = new ArrayList<>();
-        users.add(new User("S1","TC", "2002-12-13","Nam","HCM","a@gmail.com","123", Role.valueOf("Student")));
+        users.add(new User("S1","TC", "2002-12-13","Nam","HCM","a@gmail.com","123", Role.valueOf("Student"), false));
         subjects.add(new Subject("Math1", "Math"));
         for (Subject subject : subjects) {
             if (subject.getCode().equals(subjectCode)) {
@@ -107,5 +102,13 @@ public class SubjectService {
         if (!hasScores) {
             System.out.println("Học sinh chưa có điểm trong bất kỳ môn học nào.");
         }
+    }
+
+    public Map<String, Subject> getSubjectsMap() {
+        Map<String, Subject> subjectsMap = new HashMap<>();
+        for (Subject subject : subjects) {
+            subjectsMap.put(subject.getCode(), subject);
+        }
+        return subjectsMap;
     }
 }

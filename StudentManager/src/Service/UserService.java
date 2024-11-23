@@ -6,24 +6,31 @@ import entities.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class UserService {
 
     List<User> users;
 
+    private Map<String, Subject> subjects;
     public UserService(List<User> users){
         this.users = users;
     }
 
 
     public void loadAllStudents(){
-        for(User user: users){
-            if (user.getRole() == Role.Student && !user.isDeleted()){
-                System.out.println("Tên:" + user.getName()+"  Mã:" + user.getCode()+ "  Ngày sinh:" + user.getBirthDay()+"  Giới tính:" + user.getGender()+"  Địa chỉ:" + user.getAddress()+"  Email:" + user.getEmail());
-                System.out.println("============================================================================================================================================");
+        for(User user: users) {
+            if (!loadUserByCode(user.getCode()).isEmpty()) {
+                if (user.getRole() == Role.Student) {
+                    System.out.println("Tên:" + user.getName() + "  Mã:" + user.getCode() + "  Ngày sinh:" + user.getBirthDay() + "  Giới tính:" + user.getGender() + "  Địa chỉ:" + user.getAddress() + "  Email:" + user.getEmail());
+                }
+                if (user.isDeleted()) {
+                    System.out.println("Người dùng không tồn tại hoặc đã bị xóa.");
+                }
             }
+            System.out.println("==================================================");
         }
-    }
+        }
 
     public void loadAllTeacher(){
         for(User user: users){
@@ -77,3 +84,4 @@ public void deleteStudent(String code)
         System.out.println("Đã thêm học sinh mới: " + newUser .getName());
     }
 }
+
