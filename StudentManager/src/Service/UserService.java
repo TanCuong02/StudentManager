@@ -76,28 +76,4 @@ public void deleteStudent(String code)
         users.add(newUser );
         System.out.println("Đã thêm học sinh mới: " + newUser .getName());
     }
-
-    public User findStudentByCode(String code){
-        for(User user: users){
-            if(user.getCode().equalsIgnoreCase(code) && user.getRole() == Role.Student && !user.isDeleted()){
-                return user;
-            }
-        }
-        return null;
-    }
-    public void updateStudent(String code, User updatedUser){
-        for(User user : users){
-            if(user.getCode().equalsIgnoreCase(code) && user.getRole() == Role.Student && !user.isDeleted()){
-                user.setName(updatedUser.getName());
-                user.setBirthDay(updatedUser.getBirthDay());
-                user.setGender(updatedUser.getGender());
-                user.setAddress(updatedUser.getAddress());
-                user.setEmail(updatedUser.getEmail());
-                user.setPassword(updatedUser.getPassword());
-                System.out.println("Thông tin học sinh đã được cập nhật.");
-                return;
-            }
-        }
-        System.out.println("Không tìm thấy học sinh với mã đã nhập.");
-    }
 }

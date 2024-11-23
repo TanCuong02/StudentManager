@@ -13,24 +13,29 @@ public class Menu {
     UserService userService;
 
     SubjectService subjectService;
-    public Menu(List<User> users){
+
+    Authentication authentication;
+
+    public Menu(List<User> users, Authentication authentication){
         this.users = users;
         this.userService = new UserService(users);
         this.subjectService = new SubjectService();
+        this.authentication = authentication;
     }
 
     public void teacherMenu(){
         Scanner sc = new Scanner(System.in);
         int chon = 0;
         do{
-            System.out.println("\tDANH SÁCH LỰA CHỌN CHỨC NĂNG CỦA GIÁO VIÊN\t");
+            System.out.println("\tDANH SÁCH LỰA CHỌN CHỨC NĂNG\t");
             System.out.println("1. Xem danh sách học sinh");
             System.out.println("2. Thêm mới học sinh");
             System.out.println("3. Cập nhật thông tin học sinh");
             System.out.println("4. Xóa học sinh");
             System.out.println("5. Thêm môn học");
             System.out.println("6. Thêm điểm cho học sinh");
-            System.out.println("7. Thoát");
+            System.out.println("7. Đăng xuất");
+            System.out.println("8. Thoát");
             System.out.print("Chọn chức năng: ");
             chon = sc.nextInt();
             sc.nextLine();
@@ -71,8 +76,6 @@ public class Menu {
                     {
                         if(user.getCode().equals(updateCode)&&user.getRole()== Role.Student)
                         {
-                            System.out.print("Nhập mã mới:");
-                            user.setCode(sc.nextLine());
                             System.out.print("Nhập tên mới:");
                             user.setName(sc.nextLine());
                             System.out.print("Nhập ngày tháng năm sinh mới(YYYY-MM-DD):");
@@ -115,6 +118,10 @@ public class Menu {
                     subjectService.assignScore (subjectService.getSubjectByCode(subCode), userService.loadUserByCode(code), score);
                     break;
                 case 7:
+                    authentication.Logout();
+                    break;
+                case 8:
+                    authentication.exit();
                     break;
                 default:
                     System.out.println("Không hợp lệ.Vui lòng chọn lại!!!");

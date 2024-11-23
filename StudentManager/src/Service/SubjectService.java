@@ -70,9 +70,9 @@ public class SubjectService {
             if (subject.getCode().equals(subjectCode)) {
                 Float score = subject.viewScore(studentCode);
                 if (score != null) {
-                    System.out.println("Điểm của sinh viên " + studentCode + " trong môn học " + subjectCode + ": " + score);
+                    System.out.println("Điểm của học sinh " + studentCode + " trong môn học " + subjectCode + ": " + score);
                 } else {
-                    System.out.println("Sinh viên " + studentCode + " chưa có điểm trong môn học này.");
+                    System.out.println("Học sinh " + studentCode + " chưa có điểm trong môn học này.");
                 }
                 return;
             }
@@ -93,7 +93,7 @@ public class SubjectService {
         return code;
     }
     public void viewAllScores(String studentCode) {
-        System.out.println("Điểm của sinh viên :");
+        System.out.println("Điểm của học sinh:");
         boolean hasScores = false;
 
         for (Subject subject : subjects) {
@@ -105,7 +105,7 @@ public class SubjectService {
         }
 
         if (!hasScores) {
-            System.out.println("Sinh viên chưa có điểm trong bất kỳ môn học nào.");
+            System.out.println("Học sinh chưa có điểm trong bất kỳ môn học nào.");
         }
     }
 }
