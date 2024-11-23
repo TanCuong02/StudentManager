@@ -1,19 +1,18 @@
 package entities;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class User extends Infomation{
 
     private Role role;
     private boolean isDeleted;
 
 
-    public User(String code, String name, String birthDay, String gender, String address, String email, String password, Role role) {
+
+
+    public User(String code, String name, String birthDay, String gender, String address, String email, String password, Role role, boolean isDeleted) {
         super(code, name, birthDay, gender, address, email, password);
         this.role = role;
-        this.isDeleted=false;
+        this.isDeleted= isDeleted;
     }
 
     public Role getRole(){
@@ -24,4 +23,5 @@ public class User extends Infomation{
     {
         isDeleted=deleted;
     }
+
 }

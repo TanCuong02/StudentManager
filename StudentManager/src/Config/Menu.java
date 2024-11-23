@@ -1,10 +1,15 @@
-package Service;
+package Config;
 
+import Service.Authentication;
+import Service.SubjectService;
+import Service.UserService;
 import entities.Role;
 import entities.Subject;
 import entities.User;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Menu {
@@ -17,6 +22,7 @@ public class Menu {
     Authentication authentication;
 
     public Menu(List<User> users, Authentication authentication){
+
         this.users = users;
         this.userService = new UserService(users);
         this.subjectService = new SubjectService();
@@ -61,8 +67,9 @@ public class Menu {
                     String newEmail=sc.nextLine();
                     System.out.print("Nhập mật khẩu:");
                     String newPassword=sc.nextLine();
+                    boolean status = true;
                     System.out.println("Đã thêm học sinh mới!!!");
-                    User newUser  = new User(newCode, newFullName, newBirthDay, newGender, newAddress, newEmail, newPassword, Role.Student);
+                    User newUser  = new User(newCode, newFullName, newBirthDay, newGender, newAddress, newEmail, newPassword, Role.Student, status);
 
                     // Add the new user to the UserService
                     userService.addStudent(newUser );
