@@ -4,16 +4,15 @@ import entities.Role;
 import entities.Subject;
 import entities.User;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class UserService {
+public class UserManagement {
 
     List<User> users;
 
     private Map<String, Subject> subjects;
-    public UserService(List<User> users){
+    public UserManagement(List<User> users){
         this.users = users;
     }
 

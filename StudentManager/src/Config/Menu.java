@@ -1,31 +1,28 @@
 package Config;
 
 import Service.Authentication;
-import Service.SubjectService;
-import Service.UserService;
+import Service.SubjectManagement;
+import Service.UserManagement;
 import entities.Role;
-import entities.Subject;
 import entities.User;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Menu {
 
     List<User> users;
-    UserService userService;
+    UserManagement userService;
 
-    SubjectService subjectService;
+    SubjectManagement subjectService;
 
     Authentication authentication;
 
     public Menu(List<User> users, Authentication authentication){
 
         this.users = users;
-        this.userService = new UserService(users);
-        this.subjectService = new SubjectService();
+        this.userService = new UserManagement(users);
+        this.subjectService = new SubjectManagement();
         this.authentication = authentication;
     }
 
