@@ -2,7 +2,6 @@ package Service;
 
 import Config.Menu;
 import entities.Role;
-import entities.Subject;
 import entities.User;
 
 import java.util.*;
@@ -15,10 +14,10 @@ public class Authentication {
 
     Menu menu;
 
-    private SubjectService subjectService;
-    private UserService userService;
+    private SubjectManagement subjectService;
+    private UserManagement userService;
 
-    public Authentication(SubjectService subjectService) {
+    public Authentication(SubjectManagement subjectService) {
         users = new ArrayList<>();
         users.add(new User("HS1", "Student", "2002-12-13", "Nữ", "HCM", "s@gmail.com", "123", Role.Student, false));
         users.add(new User("GV2", "Teacher", "2001-11-11", "Nam", "HN", "t@gmail.com", "123", Role.Teacher, false));
@@ -26,7 +25,7 @@ public class Authentication {
         users.add(new User("GV2", "Hoàng", "2005-11-11", "Nam", "Quận 12", "hoang@gmail.com", "123", Role.Teacher, false));
 
         this.subjectService = subjectService;
-        this.userService = new UserService(users);
+        this.userService = new UserManagement(users);
         this.menu = new Menu(users, this);
 
     }
@@ -47,6 +46,127 @@ public class Authentication {
                     break;
                 }
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
 
             if(logged != null){
                 System.out.println("Đăng nhập thành công!");

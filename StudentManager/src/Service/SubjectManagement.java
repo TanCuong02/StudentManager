@@ -6,13 +6,13 @@ import entities.User;
 
 import java.util.*;
 
-public class SubjectService {
+public class SubjectManagement {
     private List<Subject> subjects;
 
 
 
     // Constructor to initialize the subjects list
-    public SubjectService() {
+    public SubjectManagement() {
         subjects = new ArrayList<>();
         Subject math = new Subject("MATH01","Math");
         Subject english = new Subject("ENG01", "English");
