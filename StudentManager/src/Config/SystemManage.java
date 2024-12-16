@@ -1,9 +1,7 @@
 package Config;
 
 import Service.Authentication;
-import Service.SubjectManagement;
 import Service.UserManagement;
-import entities.Role;
 import entities.User;
 
 import java.util.List;
@@ -15,17 +13,18 @@ public class SystemManage {
     UserManagement userService;
     SubjectManagement subjectService;
     Authentication authentication;
-    public SystemManage(List<User> users, Authentication authentication){
+
+    public SystemManage(List<User> users, Authentication authentication) {
         this.users = users;
         this.userService = new UserManagement(users);
         this.authentication = authentication;
     }
 
 
-    public void menuFunctionForTeacher(){
+    public void menuFunctionForTeacher() {
         Scanner sc = new Scanner(System.in);
         int chon = 0;
-        do{
+        do {
             System.out.println("\tDANH SÁCH LỰA CHỌN CHỨC NĂNG\t");
             System.out.println("1. Xem danh sách học sinh");
             System.out.println("2. Thêm mới học sinh");
@@ -38,7 +37,7 @@ public class SystemManage {
             System.out.print("Chọn chức năng: ");
             chon = sc.nextInt();
             sc.nextLine();
-            switch (chon){
+            switch (chon) {
                 case 1:
                     userService.displayAllStudents();
                     break;
@@ -67,14 +66,14 @@ public class SystemManage {
                     System.out.println("Không hợp lệ.Vui lòng chọn lại!!!");
                     break;
             }
-        }while (chon != 7);
+        } while (chon != 7);
 
     }
 
-    public void menuFunctionForStudent(String userCode){
+    public void menuFunctionForStudent(String userCode) {
         Scanner sc = new Scanner(System.in);
         int chon = 0;
-        do{
+        do {
             System.out.println("\tDANH SÁCH LỰA CHỌN CHỨC NĂNG\t");
             System.out.println("1. Xem điểm");
             System.out.println("2. Cập nhật thông tin");
@@ -83,7 +82,7 @@ public class SystemManage {
             System.out.print("Chọn chức năng: ");
             chon = sc.nextInt();
             sc.nextLine();
-            switch (chon){
+            switch (chon) {
                 case 1:
                     userService.displayStudentScore(userCode);
                     break;
@@ -101,7 +100,7 @@ public class SystemManage {
                     System.out.println("Không hợp lệ.Vui lòng chọn lại!!!");
                     break;
             }
-        }while (chon != 4);
+        } while (chon != 4);
     }
 
 }

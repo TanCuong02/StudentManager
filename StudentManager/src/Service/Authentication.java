@@ -18,50 +18,49 @@ public class Authentication {
 
     public Authentication() {
         users = new ArrayList<>();
-        users.add(new User("HS1", "Student", "2002-12-13", "Nữ", "HCM", "s@gmail.com", "123", Role.Student, false, 8,10,7));
-        users.add(new User("GV2", "Teacher", "2001-11-11", "Nam", "HN", "t@gmail.com", "123", Role.Teacher, false,9,10,10));
-        users.add(new User("HS2", "Minh", "2004-12-13", "Nam", "Bình Chánh", "minh@gmail.com", "123", Role.Student, false,0,0,0));
-        users.add(new User("GV2", "Hoàng", "2005-11-11", "Nam", "Quận 12", "hoang@gmail.com", "123", Role.Teacher, false,0,0,0));
+        users.add(new User("HS1", "Student", "2002-12-13", "Nữ", "HCM", "s@gmail.com", "123", Role.Student, false, 8, 10, 7));
+        users.add(new User("GV2", "Teacher", "2001-11-11", "Nam", "HN", "t@gmail.com", "123", Role.Teacher, false, 9, 10, 10));
+        users.add(new User("HS2", "Minh", "2004-12-13", "Nam", "Bình Chánh", "minh@gmail.com", "123", Role.Student, false, 0, 0, 0));
+        users.add(new User("GV2", "Hoàng", "2005-11-11", "Nam", "Quận 12", "hoang@gmail.com", "123", Role.Teacher, false, 0, 0, 0));
         this.userService = new UserManagement(users);
         this.menu = new SystemManage(users, this);
 
     }
 
 
-
-    public  void Login(){
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("============= ĐĂNG NHẬP ==============");
-            System.out.print("Nhập email: ");
-            String inputEmail = scanner.nextLine();
-            System.out.print("Nhập mật khẩu: ");
-            String inputPassword = scanner.nextLine();
-            logged = null;
-            for (User user : users) {
-                if (user.checkEmailPassword(inputEmail, inputPassword)) {
-                    logged = user;
+    public void Login() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("============= ĐĂNG NHẬP ==============");
+        System.out.print("Nhập email: ");
+        String inputEmail = scanner.nextLine();
+        System.out.print("Nhập mật khẩu: ");
+        String inputPassword = scanner.nextLine();
+        logged = null;
+        for (User user : users) {
+            if (user.checkEmailPassword(inputEmail, inputPassword)) {
+                logged = user;
+                break;
+            }
+        }
+        if (logged != null) {
+            System.out.println("Đăng nhập thành công!");
+            switch (logged.getRole()) {
+                case Student:
+                    System.out.println("Chào " + logged.getName());
+                    menu.menuFunctionForStudent(logged.getCode());
                     break;
-                }
+                case Teacher:
+                    System.out.println("Chào " + logged.getName());
+                    menu.menuFunctionForTeacher();
+                    break;
+                default:
+                    System.out.println("Lỗi!!!");
+                    break;
             }
-            if(logged != null){
-                System.out.println("Đăng nhập thành công!");
-                switch (logged.getRole()) {
-                    case Student:
-                        System.out.println("Chào " + logged.getName());
-                        menu.menuFunctionForStudent(logged.getCode());
-                        break;
-                    case Teacher:
-                        System.out.println("Chào " + logged.getName());
-                        menu.menuFunctionForTeacher();
-                        break;
-                    default:
-                        System.out.println("Lỗi!!!");
-                        break;
-                }
-            }else{
-                System.out.println("Đăng nhập không thành công!");
-                Login();
-            }
+        } else {
+            System.out.println("Đăng nhập không thành công!");
+            Login();
+        }
     }
 
     public void Logout() {
@@ -85,7 +84,7 @@ public class Authentication {
         }
     }
 
-    public void exit(){
+    public void exit() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Bạn có chắc chắn muốn thoát? (Yes/No): ");
         String response = scanner.nextLine().trim().toLowerCase();
