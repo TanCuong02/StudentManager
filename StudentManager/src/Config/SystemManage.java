@@ -11,7 +11,6 @@ public class SystemManage {
 
     List<User> users;
     UserManagement userService;
-    SubjectManagement subjectService;
     Authentication authentication;
 
     public SystemManage(List<User> users, Authentication authentication) {
@@ -51,7 +50,7 @@ public class SystemManage {
                     userService.deleteStudent();
                     break;
                 case 5:
-                    subjectService.addSubject();
+                    
                     break;
                 case 6:
 

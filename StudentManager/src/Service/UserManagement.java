@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class UserManagement {
 
     List<User> users;
-    
+
 
     public UserManagement(List<User> users) {
         this.users = users;
