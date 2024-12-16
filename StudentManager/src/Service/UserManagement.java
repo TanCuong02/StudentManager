@@ -6,6 +6,7 @@ import entities.User;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class UserManagement {
 
@@ -31,14 +32,6 @@ public class UserManagement {
         }
         }
 
-    public void loadAllTeacher(){
-        for(User user: users){
-            if(user.getRole().toString().equals("Teacher")){
-                System.out.println("Tên: " + user.getName()+"  Mã:" + user.getCode()+"   Ngày sinh:" + user.getBirthDay()+"  Giới tính:" + user.getGender()+"  Địa chỉ:" + user.getAddress()+"  Email:" + user.getEmail());
-                System.out.println("=======================================================================================================");
-            }
-        }
-    }
     public String loadUserByCode(String code){
         boolean find = false;
         for(User user: users){
@@ -82,5 +75,59 @@ public void deleteStudent(String code)
         users.add(newUser );
         System.out.println("Đã thêm học sinh mới: " + newUser .getName());
     }
+
+    public void displayStudentInfomation(String userCode){
+        for (User user : users) {
+            if (user.getCode().equals(userCode)) {
+                System.out.println("Thông tin của bạn");
+                System.out.println("Tên: " + user.getName());
+                System.out.println("Ngày sinh: " + user.getBirthDay());
+                System.out.println("Giới Tính: " + user.getGender());
+                System.out.println("Địa chỉ: " + user.getAddress());
+                System.out.println("Email: " + user.getEmail());
+            }
+        }
+    }
+
+    public void displayStudentScore(String userCode){
+        for (User user : users) {
+            if (user.getCode().equals(userCode)) {
+                System.out.println("Điểm của bạn");
+                System.out.println("Toán: " + user.getMathScore());
+                System.out.println("Văn: " + user.getLiteratureScore());
+                System.out.println("Tiếng Anh: " + user.getEnglishScore());
+            }
+        }
+    }
+
+    public void updateStudentInfomation(String userCode) {
+        Scanner sc = new Scanner(System.in);
+        boolean updateCheck = false;
+        for(User user: users) {
+            if (user.getCode().equals(userCode)) {
+                displayStudentInfomation(userCode);
+                System.out.println("Nhập thông tin cá nhân bạn muốn sửa: ");
+                System.out.println("Tên: ");
+                user.setName(sc.nextLine());
+                System.out.println("Email: ");
+                user.setEmail(sc.nextLine());
+                System.out.println("Password: ");
+                user.setPassword(sc.nextLine());
+                System.out.println("Giới Tính: ");
+                user.setGender(sc.nextLine());
+                System.out.println("Ngày sinh: ");
+                user.setBirthDay(sc.nextLine());
+                System.out.println("Địa chỉ: ");
+                user.setAddress(sc.nextLine());
+                updateCheck = true;
+                System.out.println("Cập nhật thành công");
+            }
+        }
+        if(!updateCheck){
+            System.out.println("Cập nhật không thành công");
+        }
+    }
+
+
 }
 
