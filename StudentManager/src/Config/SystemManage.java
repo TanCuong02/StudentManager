@@ -40,69 +40,16 @@ public class SystemManage {
             sc.nextLine();
             switch (chon){
                 case 1:
-                    System.out.println("==============================================");
-                    System.out.println("Danh sách học sinh");
-                    userService.loadAllStudents();
+                    userService.displayAllStudents();
                     break;
                 case 2:
-                    System.out.println("Thêm mới học sinh");
-                    System.out.print("Nhập mã học sinh:");
-                    String newCode=sc.nextLine();
-                    System.out.print("Nhập họ và tên học sinh:");
-                    String newFullName=sc.nextLine();
-                    System.out.print("Nhập ngày tháng năm sinh(YYYY-MM-DD):");
-                    String newBirthDay=sc.nextLine();
-                    System.out.print("Nhập giới tính:");
-                    String newGender=sc.nextLine();
-                    System.out.print("Nhập địa chỉ:");
-                    String newAddress=sc.nextLine();
-                    System.out.print("Nhập email:");
-                    String newEmail=sc.nextLine();
-                    System.out.print("Nhập mật khẩu:");
-                    String newPassword=sc.nextLine();
-                    boolean status = true;
-                    System.out.println("Đã thêm học sinh mới!!!");
-                    User newUser  = new User(newCode, newFullName, newBirthDay, newGender, newAddress, newEmail, newPassword, Role.Student, status,0,0,0);
-
-                    // Add the new user to the UserService
-                    userService.addStudent(newUser );
+                    userService.createNewStudent();
                     break;
                 case 3:
-                    System.out.println("Cập nhật thông tin học sinh");
-                    System.out.print("Nhập mã học sinh cần cập nhật:");
-                    String updateCode=sc.nextLine();
-                    boolean updated=false;
-                    for(User user:users)
-                    {
-                        if(user.getCode().equals(updateCode)&&user.getRole()== Role.Student)
-                        {
-                            System.out.print("Nhập tên mới:");
-                            user.setName(sc.nextLine());
-                            System.out.print("Nhập ngày tháng năm sinh mới(YYYY-MM-DD):");
-                            user.setBirthDay(sc.nextLine());
-                            System.out.print("Nhập giới tính mới:");
-                            user.setGender(sc.nextLine());
-                            System.out.print("Nhập địa chỉ mới:");
-                            user.setAddress(sc.nextLine());
-                            System.out.print("Nhập email mới:");
-                            user.setEmail(sc.nextLine());
-                            System.out.print("Nhập mật khẩu mới:");
-                            user.setPassword(sc.nextLine());
-                            updated=true;
-                            System.out.println("Thông tin học sinh đã được cập nhật!!!");
-                            break;
-                        }
-                    }
-                    if(!updated)
-                    {
-                        System.out.println("Không tìm thấy học sinh với mã đã nhập!!!");
-                    }
+                    userService.updateStudentInfomation();
                     break;
                 case 4:
-                    System.out.println("Xóa học sinh");
-                    System.out.print("Nhập mã học sinh cần xóa:");
-                    String studentCode=sc.nextLine();
-                    userService.deleteStudent(studentCode);
+                    userService.deleteStudent();
                     break;
                 case 5:
                     subjectService.addSubject();
@@ -141,7 +88,7 @@ public class SystemManage {
                     userService.displayStudentScore(userCode);
                     break;
                 case 2:
-                    userService.updateStudentInfomation(userCode);
+                    userService.updateStudentInfomationByCode(userCode);
                     break;
                 case 3:
                     authentication.Logout();
