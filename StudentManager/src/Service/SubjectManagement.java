@@ -46,18 +46,7 @@ public class SubjectManagement {
     }
 
     // Method to assign a score to a student for a specific subject
-    public void assignScore(String subjectCode, String studentCode, float grade) {
-        List<User> users = new ArrayList<>();
-        users.add(new User("S1","TC", "2002-12-13","Nam","HCM","a@gmail.com","123", Role.valueOf("Student"), false));
-        subjects.add(new Subject("Math1", "Math"));
-        for (Subject subject : subjects) {
-            if (subject.getCode().equals(subjectCode)) {
-                subject.addOrUpdateScore(studentCode, grade);
-                System.out.println("Đã thêm hoặc cập nhật điểm cho sinh viên " + studentCode + " trong môn học " + subjectCode);
-                return;
-            }
-        }
-    }
+
 
     // Method to view a student's score for a specific subject
     public void viewScore(String subjectCode, String studentCode) {

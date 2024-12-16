@@ -1,6 +1,6 @@
 package Service;
 
-import Config.Menu;
+import Config.SystemManage;
 import entities.Role;
 import entities.User;
 
@@ -12,21 +12,18 @@ public class Authentication {
 
     private User logged;
 
-    Menu menu;
+    SystemManage menu;
 
-    private SubjectManagement subjectService;
     private UserManagement userService;
 
-    public Authentication(SubjectManagement subjectService) {
+    public Authentication() {
         users = new ArrayList<>();
-        users.add(new User("HS1", "Student", "2002-12-13", "Nữ", "HCM", "s@gmail.com", "123", Role.Student, false));
-        users.add(new User("GV2", "Teacher", "2001-11-11", "Nam", "HN", "t@gmail.com", "123", Role.Teacher, false));
-        users.add(new User("HS2", "Minh", "2004-12-13", "Nam", "Bình Chánh", "minh@gmail.com", "123", Role.Student, false));
-        users.add(new User("GV2", "Hoàng", "2005-11-11", "Nam", "Quận 12", "hoang@gmail.com", "123", Role.Teacher, false));
-
-        this.subjectService = subjectService;
+        users.add(new User("HS1", "Student", "2002-12-13", "Nữ", "HCM", "s@gmail.com", "123", Role.Student, false, 8,10,7));
+        users.add(new User("GV2", "Teacher", "2001-11-11", "Nam", "HN", "t@gmail.com", "123", Role.Teacher, false,9,10,10));
+        users.add(new User("HS2", "Minh", "2004-12-13", "Nam", "Bình Chánh", "minh@gmail.com", "123", Role.Student, false,0,0,0));
+        users.add(new User("GV2", "Hoàng", "2005-11-11", "Nam", "Quận 12", "hoang@gmail.com", "123", Role.Teacher, false,0,0,0));
         this.userService = new UserManagement(users);
-        this.menu = new Menu(users, this);
+        this.menu = new SystemManage(users, this);
 
     }
 
@@ -41,143 +38,21 @@ public class Authentication {
             String inputPassword = scanner.nextLine();
             logged = null;
             for (User user : users) {
-                if (user.login(inputEmail, inputPassword)) {
+                if (user.checkEmailPassword(inputEmail, inputPassword)) {
                     logged = user;
                     break;
                 }
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-
             if(logged != null){
                 System.out.println("Đăng nhập thành công!");
                 switch (logged.getRole()) {
                     case Student:
                         System.out.println("Chào " + logged.getName());
-                        userService.loadUserByCode(logged.getCode());
+                        menu.menuFunctionForStudent(logged.getCode());
                         break;
                     case Teacher:
                         System.out.println("Chào " + logged.getName());
-                        menu.teacherMenu();
+                        menu.menuFunctionForTeacher();
                         break;
                     default:
                         System.out.println("Lỗi!!!");
@@ -200,7 +75,7 @@ public class Authentication {
                 logged = null;
                 Login();
             } else if (response.equals("no")) {
-                menu.teacherMenu();
+                menu.menuFunctionForTeacher();
             } else {
                 System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập 'Yes' hoặc 'No'.");
                 Logout();
@@ -217,7 +92,7 @@ public class Authentication {
         if (response.equals("yes")) {
             System.exit(0);
         } else if (response.equals("no")) {
-            menu.teacherMenu();
+            menu.menuFunctionForTeacher();
         } else {
             System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập 'Yes' hoặc 'No'.");
             Logout();

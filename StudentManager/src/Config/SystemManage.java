@@ -9,24 +9,20 @@ import entities.User;
 import java.util.List;
 import java.util.Scanner;
 
-public class Menu {
+public class SystemManage {
 
     List<User> users;
     UserManagement userService;
-
     SubjectManagement subjectService;
-
     Authentication authentication;
-
-    public Menu(List<User> users, Authentication authentication){
-
+    public SystemManage(List<User> users, Authentication authentication){
         this.users = users;
         this.userService = new UserManagement(users);
-        this.subjectService = new SubjectManagement();
         this.authentication = authentication;
     }
 
-    public void teacherMenu(){
+
+    public void menuFunctionForTeacher(){
         Scanner sc = new Scanner(System.in);
         int chon = 0;
         do{
@@ -66,7 +62,7 @@ public class Menu {
                     String newPassword=sc.nextLine();
                     boolean status = true;
                     System.out.println("Đã thêm học sinh mới!!!");
-                    User newUser  = new User(newCode, newFullName, newBirthDay, newGender, newAddress, newEmail, newPassword, Role.Student, status);
+                    User newUser  = new User(newCode, newFullName, newBirthDay, newGender, newAddress, newEmail, newPassword, Role.Student, status,0,0,0);
 
                     // Add the new user to the UserService
                     userService.addStudent(newUser );
@@ -112,14 +108,7 @@ public class Menu {
                     subjectService.addSubject();
                     break;
                 case 6:
-                    System.out.print("Nhập mã học sinh:");
-                    String code = sc.nextLine();
-                    System.out.print("Nhập mã môn:");
-                    String subCode = sc.nextLine();
-                    System.out.print("Nhập điểm môn:");
-                    float score = sc.nextFloat();
-                    sc.nextLine();
-                    subjectService.assignScore (subjectService.getSubjectByCode(subCode), userService.loadUserByCode(code), score);
+
                     break;
                 case 7:
                     authentication.Logout();
@@ -133,6 +122,39 @@ public class Menu {
             }
         }while (chon != 7);
 
+    }
+
+    public void menuFunctionForStudent(String userCode){
+        Scanner sc = new Scanner(System.in);
+        int chon = 0;
+        do{
+            System.out.println("\tDANH SÁCH LỰA CHỌN CHỨC NĂNG\t");
+            System.out.println("1. Xem điểm");
+            System.out.println("2. Cập nhật thông tin");
+            System.out.println("3. Đăng xuất");
+            System.out.println("4. Thoát");
+            System.out.print("Chọn chức năng: ");
+            chon = sc.nextInt();
+            sc.nextLine();
+            switch (chon){
+                case 1:
+                    userService.displayStudentScore(userCode);
+                    break;
+                case 2:
+                    userService.updateStudentInfomation(userCode);
+                    break;
+                case 3:
+                    authentication.Logout();
+                    break;
+                case 4:
+                    authentication.exit();
+                    break;
+
+                default:
+                    System.out.println("Không hợp lệ.Vui lòng chọn lại!!!");
+                    break;
+            }
+        }while (chon != 4);
     }
 
 }

@@ -10,11 +10,15 @@ public class User{
     protected String address;
     protected String email;
     protected String password;
-
     protected Role role;
     protected boolean isDeleted;
 
-    public User(String code, String name, String birthDay, String gender, String address, String email, String password, Role role, boolean isDeleted) {
+    protected double mathScore = 0;
+    protected double englishScore= 0;
+    protected double literatureScore= 0;
+
+
+    public User(String code, String name, String birthDay, String gender, String address, String email, String password, Role role, boolean isDeleted, double mathScore, double englishScore, double literatureScore) {
         this.code = code;
         this.name = name;
         this.birthDay = birthDay;
@@ -24,15 +28,15 @@ public class User{
         this.password = password;
         this.role = role;
         this.isDeleted = isDeleted;
+        this.mathScore = mathScore;
+        this.englishScore = englishScore;
+        this.literatureScore = literatureScore;
     }
 
     public String getCode() {
         return code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -74,9 +78,6 @@ public class User{
         return email;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
     public String getName() {
         return name;
@@ -91,7 +92,31 @@ public class User{
         isDeleted=deleted;
     }
 
-    public boolean login(String email, String password) {
+    public double getMathScore() {
+        return mathScore;
+    }
+
+    public void setMathScore(double mathScore) {
+        this.mathScore = mathScore;
+    }
+
+    public double getEnglishScore() {
+        return englishScore;
+    }
+
+    public void setEnglishScore(double englishScore) {
+        this.englishScore = englishScore;
+    }
+
+    public double getLiteratureScore() {
+        return literatureScore;
+    }
+
+    public void setLiteratureScore(double literatureScore) {
+        this.literatureScore = literatureScore;
+    }
+
+    public boolean checkEmailPassword(String email, String password) {
         return this.email.equals(email) && this.password.equals(password);
     }
 
