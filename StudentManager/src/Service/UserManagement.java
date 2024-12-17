@@ -6,14 +6,19 @@ import entities.User;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.HashSet;
 
 public class UserManagement {
 
     List<User> users;
+    Set<String> subjects;
 
 
     public UserManagement(List<User> users) {
+
         this.users = users;
+        this.subjects = new HashSet<>();
     }
 
 
@@ -23,7 +28,7 @@ public class UserManagement {
         for (User user : users) {
             if (!displayStudentByCode(user.getCode()).isEmpty()) {
                 if (user.getRole() == Role.Student) {
-                    System.out.println("Tên: " + user.getName() + "  Mã:" + user.getCode() + "  Ngày sinh: " + user.getBirthDay() + "  Giới tính: " + user.getGender() + "  Địa chỉ: " + user.getAddress() + "  Email: " + user.getEmail());
+                    System.out.println("Tên: " + user.getName() + "  Mã:" + user.getCode() + "  Ngày sinh: " + user.getBirthDay() + "  Giới tính: " + user.getGender() + "  Địa chỉ: " + user.getAddress() + "  Email: " + user.getEmail()+"   Điểm Văn:"+user.getLiteratureScore()+"   Điểm Toán:"+user.getMathScore()+"   Điểm Anh:"+user.getEnglishScore());
                     System.out.println();
                 }
                 if (user.isDeleted()) {
@@ -84,6 +89,9 @@ public class UserManagement {
                 System.out.println("Giới Tính: " + user.getGender());
                 System.out.println("Địa chỉ: " + user.getAddress());
                 System.out.println("Email: " + user.getEmail());
+                System.out.println("Điểm Văn:"+user.getLiteratureScore());
+                System.out.println("Điểm Toán:"+user.getMathScore());
+                System.out.println("Điểm Anh:"+user.getEnglishScore());
                 System.out.println();
             }
         }
@@ -148,6 +156,12 @@ public class UserManagement {
         String newEmail = sc.nextLine();
         System.out.print("Nhập mật khẩu:");
         String newPassword = sc.nextLine();
+        System.out.println("Nhâp điểm môn Văn:");
+        String newScoreLiterature=sc.nextLine();
+        System.out.println("Nhâp điểm môn Toán:");
+        String newScoreMath=sc.nextLine();
+        System.out.println("Nhâp điểm môn Anh:");
+        String newScoreEnglish=sc.nextLine();
         boolean status = true;
         System.out.println("Đã thêm học sinh mới!!!");
         User newUser = new User(newCode, newFullName, newBirthDay, newGender, newAddress, newEmail, newPassword, Role.Student, status, 0, 0, 0);
@@ -193,6 +207,142 @@ public class UserManagement {
         String studentCode = sc.nextLine();
         deleteStudentByCode(studentCode);
     }
+    public void addSpecialSubject(String userCode) {
+        Scanner sc = new Scanner(System.in);
+        boolean found = false;
 
+        System.out.print("Nhập tên môn học đặc biệt để thêm: ");
+        String subjectName = sc.nextLine().trim(); // Trim whitespace
+
+        // Check for empty input
+        if (subjectName.isEmpty()) {
+            System.out.println("Tên môn học không được để trống.");
+            return;
+        }
+
+        // Find the student by user code
+        for (User  user : users) {
+            if (user.getCode().equals(userCode) && user.getRole() == Role.Student) {
+                found = true;
+                // Add the special subject to the user's list of special subjects
+                user.addSpecialSubject(subjectName);
+                // Add the special subject with an initial score of 0.0
+                user.setAdditionalScore(subjectName, 0.0);
+                System.out.println("Môn " + subjectName + " đã được thêm cho học sinh " + user.getName());
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Không tìm thấy học sinh với mã " + userCode);
+        }
+    }
+
+
+    public void addScoreForSpecialSubject(String userCode) {
+        Scanner sc = new Scanner(System.in);
+        boolean found = false;
+
+        System.out.print("Nhập tên môn học đặc biệt: ");
+        String subjectName = sc.nextLine();
+
+        // Find the student by user code
+        for (User user : users) {
+            if (user.getCode().equals(userCode) && user.getRole() == Role.Student) {
+                found = true;
+
+                // Check if the subject exists in the user's special subjects
+                if (!user.getAdditionalScores().containsKey(subjectName)) {
+                    System.out.println("Môn học " + subjectName + " không tồn tại cho học sinh này. Vui lòng thêm môn học trước.");
+                    return;
+                }
+
+                System.out.print("Nhập điểm cho môn " + subjectName + ": ");
+                String input = sc.nextLine();
+
+                try {
+                    double score = Double.parseDouble(input);
+                    user.setAdditionalScore(subjectName, score); // For additional subjects
+                    System.out.println("Điểm cho môn " + subjectName + " đã được thêm cho học sinh " + user.getName());
+
+                    // Calculate and display average score
+                    double averageScore = user.calculateAverageScore();
+                    System.out.println("Điểm trung bình của học sinh " + user.getName() + ": " + averageScore);
+                } catch (NumberFormatException e) {
+                    System.out.println("Điểm không hợp lệ!");
+                }
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Không tìm thấy học sinh với mã " + userCode);
+        }
+    }
+
+    // Method to update score for a special subject for a specific student
+    public void editScoreForSpecialSubject(String userCode) {
+        Scanner sc = new Scanner(System.in);
+        boolean found = false;
+
+        System.out.print("Nhập tên môn học đặc biệt để sửa điểm: ");
+        String subjectName = sc.nextLine();
+
+        // Check if the subject exists in the predefined list or as an additional score
+        if (!subjects.contains(subjectName) && !additionalScoresExist(userCode, subjectName)) {
+            System.out.println("Môn học " + subjectName + " không tồn tại hoặc chưa được thêm cho học sinh.");
+            return;
+        }
+
+        // Find the student by user code
+        for (User user : users) {
+            if (user.getCode().equals(userCode) && user.getRole() == Role.Student) {
+                found = true;
+
+                System.out.print("Nhập điểm mới cho môn " + subjectName + " (hoặc để trống để xem điểm trung bình): ");
+                String input = sc.nextLine();
+
+                if (!input.isEmpty()) {
+                    try {
+                        double newScore = Double.parseDouble(input);
+
+                        // Update the score based on whether it is a fixed or additional subject
+                        if (subjectName.equalsIgnoreCase("Toán")) {
+                            user.setMathScore(newScore);
+                        } else if (subjectName.equalsIgnoreCase("Văn")) {
+                            user.setLiteratureScore(newScore);
+                        } else if (subjectName.equalsIgnoreCase("Anh")) {
+                            user.setEnglishScore(newScore);
+                        } else {
+                            user.setAdditionalScore(subjectName, newScore); // For additional subjects
+                        }
+
+                        System.out.println("Điểm cho môn " + subjectName + " đã được cập nhật cho học sinh " + user.getName());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Điểm không hợp lệ! Hiện tại sẽ hiển thị điểm trung bình.");
+                    }
+                }
+
+                // Display average score regardless of input validity
+                double averageScore = user.calculateAverageScore();
+                System.out.println("Điểm trung bình của học sinh " + user.getName() + ": " + averageScore);
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Không tìm thấy học sinh với mã " + userCode);
+        }
+    }
+
+    private boolean additionalScoresExist(String userCode, String subjectName) {
+        for (User user : users) {
+            if (user.getCode().equals(userCode)) {
+                return user.getAdditionalScores().containsKey(subjectName);
+            }
+        }
+        return false;
+    }
 }
+
 
