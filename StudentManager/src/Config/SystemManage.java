@@ -1,7 +1,9 @@
 package Config;
 
 import Service.Authentication;
+import Service.SubjectManagement;
 import Service.UserManagement;
+import entities.Semester;
 import entities.User;
 
 import java.util.List;
@@ -29,10 +31,11 @@ public class SystemManage {
             System.out.println("2. Thêm mới học sinh");
             System.out.println("3. Cập nhật thông tin học sinh");
             System.out.println("4. Xóa học sinh");
-            System.out.println("5. Thêm môn học");
-            System.out.println("6. Thêm điểm cho học sinh");
-            System.out.println("7. Đăng xuất");
-            System.out.println("8. Thoát");
+            System.out.println("5. Danh sách môn");
+            System.out.println("6. Thêm môn học đặc biệt cho học sinh");
+            System.out.println("7. Xoá môn học đặc biệt cho học sinh");
+            System.out.println("8. Đăng xuất");
+            System.out.println("9. Thoát");
             System.out.print("Chọn chức năng: ");
             chon = sc.nextInt();
             sc.nextLine();
@@ -50,7 +53,7 @@ public class SystemManage {
                     userService.deleteStudent();
                     break;
                 case 5:
-                    
+
                     break;
                 case 6:
 
