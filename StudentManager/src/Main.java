@@ -1,8 +1,8 @@
-import Service.SystemService;
+import Service.Authentication;
 
 public class Main {
     public static void main(String[] args) {
-        SystemService s = new SystemService();
-        s.start();
+        Authentication auth = new Authentication();
+        auth.Login();
     }
 }
