@@ -1,5 +1,8 @@
 package entities;
-
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 
 public class User{
 
@@ -16,6 +19,8 @@ public class User{
     protected double mathScore = 0;
     protected double englishScore= 0;
     protected double literatureScore= 0;
+    protected Map<String, Double> additionalScores;
+    Set<String> specialSubjects;
 
 
     public User(String code, String name, String birthDay, String gender, String address, String email, String password, Role role, boolean isDeleted, double mathScore, double englishScore, double literatureScore) {
@@ -31,6 +36,8 @@ public class User{
         this.mathScore = mathScore;
         this.englishScore = englishScore;
         this.literatureScore = literatureScore;
+        this.additionalScores = new HashMap<>();
+        this.specialSubjects = new HashSet<>();
     }
 
     public String getCode() {
@@ -115,9 +122,35 @@ public class User{
     public void setLiteratureScore(double literatureScore) {
         this.literatureScore = literatureScore;
     }
+    public void addSpecialSubject(String subjectName) {
+        specialSubjects.add(subjectName);
+    }
 
+    public Set<String> getSpecialSubjects() {
+        return specialSubjects;
+    }
+
+    public void setAdditionalScore(String subjectName, double score) {
+        additionalScores.put(subjectName, score);
+    }
+
+    public Map<String, Double> getAdditionalScores() {
+        return additionalScores;
+    }
     public boolean checkEmailPassword(String email, String password) {
         return this.email.equals(email) && this.password.equals(password);
+    }
+    public double calculateAverageScore() {
+        double totalScore = mathScore + literatureScore + englishScore;
+        int count = 3; // Start with 3 fixed subjects
+
+        // Add additional scores
+        for (Double score : additionalScores.values()) {
+            totalScore += score;
+            count++;
+        }
+
+        return count > 0 ? totalScore / count : 0; // Avoid division by zero
     }
 
 }

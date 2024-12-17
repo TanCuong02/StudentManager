@@ -20,8 +20,6 @@ public class SystemManage {
         this.userService = new UserManagement(users);
         this.authentication = authentication;
     }
-
-
     public void menuFunctionForTeacher() {
         Scanner sc = new Scanner(System.in);
         int chon = 0;
@@ -34,8 +32,10 @@ public class SystemManage {
             System.out.println("5. Danh sách môn");
             System.out.println("6. Thêm môn học đặc biệt cho học sinh");
             System.out.println("7. Xoá môn học đặc biệt cho học sinh");
-            System.out.println("8. Đăng xuất");
-            System.out.println("9. Thoát");
+            System.out.println("8. Thêm điểm môn học đặc biệt cho học sinh");
+            System.out.println("9. Sửa điểm môn học cho học sinh");
+            System.out.println("10. Đăng xuất");
+            System.out.println("11. Thoát");
             System.out.print("Chọn chức năng: ");
             chon = sc.nextInt();
             sc.nextLine();
@@ -56,19 +56,34 @@ public class SystemManage {
 
                     break;
                 case 6:
-
+                    System.out.print("Nhập mã học sinh để thêm môn đặc biệt: ");
+                    String studentCodeForSpecialSubjectAdd = sc.nextLine();
+                    userService.addSpecialSubject(studentCodeForSpecialSubjectAdd);
                     break;
                 case 7:
-                    authentication.Logout();
+
                     break;
                 case 8:
+                    System.out.print("Nhập mã học sinh để thêm điểm môn đặc biệt: ");
+                    String studentCodeForScore = sc.nextLine();
+                    userService.addScoreForSpecialSubject(studentCodeForScore);
+                    break;
+                case 9:
+                    System.out.print("Nhập mã học sinh để sửa điểm môn đặc biệt: ");
+                    String studentCodeForEdit = sc.nextLine();
+                    userService.editScoreForSpecialSubject(studentCodeForEdit);
+                    break;
+                case 10:
+                    authentication.Logout();
+                    break;
+                case 11:
                     authentication.exit();
                     break;
                 default:
                     System.out.println("Không hợp lệ.Vui lòng chọn lại!!!");
                     break;
             }
-        } while (chon != 7);
+        } while (chon != 10);
 
     }
 
