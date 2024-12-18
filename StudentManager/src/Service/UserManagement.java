@@ -27,7 +27,6 @@ public class UserManagement {
                     System.out.println("Tên: " + user.getName() + "  Mã:" + user.getCode() + "  Ngày sinh: " + user.getBirthDay() + "  Giới tính: " + user.getGender() + "  Địa chỉ: " + user.getAddress() + "  Email: " + user.getEmail() + "   Điểm Văn:" + user.getLiteratureScore() + "   Điểm Toán:" + user.getMathScore() + "   Điểm Anh:" + user.getEnglishScore());
                     System.out.println();
                 }
-
             }
         }
         }
@@ -163,7 +162,6 @@ public class UserManagement {
                 user.setEmail(sc.nextLine());
                 System.out.print("Nhập mật khẩu:");
                 user.setPassword(sc.nextLine());
-                user.isDeleted();
                 updated = true;
                 System.out.println("Thông tin học sinh đã được cập nhật!!!");
                 break;
@@ -178,7 +176,7 @@ public class UserManagement {
         boolean found = false;
         for (User user : users) {
             if (user.getCode().equals(code) && user.getRole() == Role.Student) {
-                user.isDeleted();
+                user.setDeleted(true);
                 found = true;
                 System.out.println("Học sinh với mã " + code + " đã bị xóa!!!");
                 break;
@@ -254,7 +252,16 @@ public class UserManagement {
                     System.out.println("Điểm Văn:"+user.getLiteratureScore());
                     System.out.println("Điểm Toán:"+user.getMathScore());
                     System.out.println("Điểm Anh:"+user.getEnglishScore());
-
+                    Map<String, Double> spsScore = user.getAdditionalScores();
+                    if(spsScore == null || spsScore.isEmpty()) {
+                        System.out.println("Không có môn đặc biệt");
+                    }else {
+                        for (Map.Entry<String, Double> entry : spsScore.entrySet()) {
+                            String subject = entry.getKey();
+                            Double point = entry.getValue();
+                            System.out.println("Môn " + subject + ": " + point);
+                        }
+                    }
                     // Calculate and display average score
                     double averageScore = user.calculateAverageScore();
                     System.out.println("Điểm trung bình của học sinh " + user.getName() + ": " + averageScore);

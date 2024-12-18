@@ -33,11 +33,10 @@ public class SystemManage {
             System.out.println("6. Thêm môn học đặc biệt");
             System.out.println("7. Sửa môn học đặc biệt");
             System.out.println("8. Thêm môn học đặc biệt cho học sinh");
-            System.out.println("9. Xoá môn học đặc biệt cho học sinh");
-            System.out.println("10. Thêm điểm môn học đặc biệt cho học sinh");
-            System.out.println("11. Sửa điểm môn học cho học sinh");
-            System.out.println("12. Đăng xuất");
-            System.out.println("13. Thoát");
+            System.out.println("9. Thêm điểm môn học đặc biệt cho học sinh");
+            System.out.println("10. Sửa điểm môn học cho học sinh");
+            System.out.println("11. Đăng xuất");
+            System.out.println("12. Thoát");
             System.out.print("Chọn chức năng: ");
             chon = sc.nextInt();
             sc.nextLine();
@@ -69,29 +68,26 @@ public class SystemManage {
                     userService.addSpecialSubjectToStudent(studentCodeForSpecialSubjectAdd);
                     break;
                 case 9:
-
-                    break;
-                case 10:
                     System.out.print("Nhập mã học sinh để thêm điểm môn đặc biệt: ");
                     String studentCodeForScore = sc.nextLine();
                     userService.addScoreSpecialSubjectForStudent(studentCodeForScore);
                     break;
-                case 11:
+                case 10:
                     System.out.print("Nhập mã học sinh để sửa điểm môn đặc biệt: ");
                     String studentCodeForEdit = sc.nextLine();
                     userService.editScoreSpecialSubjectForStudent(studentCodeForEdit);
                     break;
-                case 12:
+                case 11:
                     authentication.displayLogout();
                     break;
-                case 13:
+                case 12:
                     authentication.exit();
                     break;
                 default:
                     System.out.println("Không hợp lệ.Vui lòng chọn lại!!!");
                     break;
             }
-        } while (chon != 13);
+        } while (chon != 12);
 
     }
 

@@ -93,7 +93,9 @@ public class User{
         return role;
     }
     public boolean isDeleted(){ return isDeleted;}
-
+    public void setDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 
     public double getMathScore() {
         return mathScore;
@@ -122,9 +124,6 @@ public class User{
         specialSubjects.add(subjectCode);
     }
 
-    public Set<String> getSpecialSubjects() {
-        return specialSubjects;
-    }
 
     public void setAdditionalScore(String subjectName, double score) {
         additionalScores.put(subjectName, score);
