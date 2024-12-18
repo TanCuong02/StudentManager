@@ -78,6 +78,7 @@ public class UserManagement {
         // Nếu không tìm thấy, thêm học sinh mới vào danh sách
         users.add(newUser);
         System.out.println("Đã thêm học sinh mới");
+        displayStudentScore(newUser.getCode());
     }
 
     public void displayStudentInfomation(String userCode) {
@@ -159,13 +160,13 @@ public class UserManagement {
         System.out.print("Nhập mật khẩu:");
         String newPassword = sc.nextLine();
         System.out.println("Nhâp điểm môn Văn:");
-        String newScoreLiterature=sc.nextLine();
+        double newScoreLiterature=sc.nextDouble();
         System.out.println("Nhâp điểm môn Toán:");
-        String newScoreMath=sc.nextLine();
+        double newScoreMath=sc.nextDouble();
         System.out.println("Nhâp điểm môn Anh:");
-        String newScoreEnglish=sc.nextLine();
+        double newScoreEnglish=sc.nextDouble();
         boolean status = true;
-        User newUser = new User(newCode, newFullName, newBirthDay, newGender, newAddress, newEmail, newPassword, Role.Student, status, 0, 0, 0);
+        User newUser = new User(newCode, newFullName, newBirthDay, newGender, newAddress, newEmail, newPassword, Role.Student, status, newScoreMath, newScoreEnglish, newScoreLiterature);
 
         // Add the new user to the UserService
         addNewStudent(newUser);
