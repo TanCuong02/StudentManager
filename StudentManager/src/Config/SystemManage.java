@@ -30,12 +30,14 @@ public class SystemManage {
             System.out.println("3. Cập nhật thông tin học sinh");
             System.out.println("4. Xóa học sinh");
             System.out.println("5. Danh sách môn");
-            System.out.println("6. Thêm môn học đặc biệt cho học sinh");
-            System.out.println("7. Xoá môn học đặc biệt cho học sinh");
-            System.out.println("8. Thêm điểm môn học đặc biệt cho học sinh");
-            System.out.println("9. Sửa điểm môn học cho học sinh");
-            System.out.println("10. Đăng xuất");
-            System.out.println("11. Thoát");
+            System.out.println("6. Thêm môn học đặc biệt");
+            System.out.println("7. Sửa môn");
+            System.out.println("8. Thêm môn học đặc biệt cho học sinh");
+            System.out.println("9. Xoá môn học đặc biệt cho học sinh");
+            System.out.println("10. Thêm điểm môn học đặc biệt cho học sinh");
+            System.out.println("11. Sửa điểm môn học cho học sinh");
+            System.out.println("12. Đăng xuất");
+            System.out.println("13. Thoát");
             System.out.print("Chọn chức năng: ");
             chon = sc.nextInt();
             sc.nextLine();
@@ -56,34 +58,40 @@ public class SystemManage {
 
                     break;
                 case 6:
-                    System.out.print("Nhập mã học sinh để thêm môn đặc biệt: ");
-                    String studentCodeForSpecialSubjectAdd = sc.nextLine();
-                    userService.addSpecialSubject(studentCodeForSpecialSubjectAdd);
+
                     break;
                 case 7:
-                    authentication.displayLogout();
+
                     break;
                 case 8:
-                    System.out.print("Nhập mã học sinh để thêm điểm môn đặc biệt: ");
-                    String studentCodeForScore = sc.nextLine();
-                    userService.addScoreForSpecialSubject(studentCodeForScore);
+                    System.out.print("Nhập mã học sinh để thêm môn đặc biệt: ");
+                    String studentCodeForSpecialSubjectAdd = sc.nextLine();
+                    userService.addSpecialSubjectToStudent(studentCodeForSpecialSubjectAdd);
                     break;
                 case 9:
-                    System.out.print("Nhập mã học sinh để sửa điểm môn đặc biệt: ");
-                    String studentCodeForEdit = sc.nextLine();
-                    userService.editScoreForSpecialSubject(studentCodeForEdit);
+
                     break;
                 case 10:
-                    authentication.displayLogout();
+                    System.out.print("Nhập mã học sinh để thêm điểm môn đặc biệt: ");
+                    String studentCodeForScore = sc.nextLine();
+                    userService.addScoreSpecialSubjectForStudent(studentCodeForScore);
                     break;
                 case 11:
+                    System.out.print("Nhập mã học sinh để sửa điểm môn đặc biệt: ");
+                    String studentCodeForEdit = sc.nextLine();
+                    userService.editScoreSpecialSubjectForStudent(studentCodeForEdit);
+                    break;
+                case 12:
+                    authentication.displayLogout();
+                    break;
+                case 13:
                     authentication.exit();
                     break;
                 default:
                     System.out.println("Không hợp lệ.Vui lòng chọn lại!!!");
                     break;
             }
-        } while (chon != 10);
+        } while (chon != 13);
 
     }
 

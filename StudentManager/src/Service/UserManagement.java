@@ -206,7 +206,7 @@ public class UserManagement {
         String studentCode = sc.nextLine();
         deleteStudentByCode(studentCode);
     }
-    public void addSpecialSubject(String userCode) {
+    public void addSpecialSubjectToStudent(String userCode) {
         Scanner sc = new Scanner(System.in);
         boolean found = false;
 
@@ -238,7 +238,7 @@ public class UserManagement {
     }
 
 
-    public void addScoreForSpecialSubject(String userCode) {
+    public void addScoreSpecialSubjectForStudent(String userCode) {
         Scanner sc = new Scanner(System.in);
         boolean found = false;
 
@@ -280,7 +280,7 @@ public class UserManagement {
     }
 
     // Method to update score for a special subject for a specific student
-    public void editScoreForSpecialSubject(String userCode) {
+    public void editScoreSpecialSubjectForStudent(String userCode) {
         Scanner sc = new Scanner(System.in);
         boolean found = false;
 
