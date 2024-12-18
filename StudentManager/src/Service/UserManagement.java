@@ -22,30 +22,15 @@ public class UserManagement {
         System.out.println("==============================================");
         System.out.println("Danh sách học sinh");
         for (User user : users) {
-            if (!displayStudentByCode(user.getCode()).isEmpty()) {
+            if (!user.isDeleted()) {
                 if (user.getRole() == Role.Student) {
                     System.out.println("Tên: " + user.getName() + "  Mã:" + user.getCode() + "  Ngày sinh: " + user.getBirthDay() + "  Giới tính: " + user.getGender() + "  Địa chỉ: " + user.getAddress() + "  Email: " + user.getEmail() + "   Điểm Văn:" + user.getLiteratureScore() + "   Điểm Toán:" + user.getMathScore() + "   Điểm Anh:" + user.getEnglishScore());
                     System.out.println();
                 }
-                if (user.isDeleted()) {
-                    System.out.println("Người dùng không tồn tại hoặc đã bị xóa.");
-                }
+
             }
         }
-    }
-    public String displayStudentByCode(String code) {
-        boolean find = false;
-        for (User user : users) {
-            if (user.getCode().equals(code)) {
-                find = true;
-                return user.getCode();
-            }
         }
-        if (!find) {
-            System.out.println("Không tìm thấy học sinh");
-        }
-        return code;
-    }
 
     public void displayStudentInfomation(String userCode) {
         for (User user : users) {
@@ -90,7 +75,7 @@ public class UserManagement {
     public void addNewStudent(User newUser) {
         // Kiểm tra xem học sinh đã tồn tại chưa
         for (User user : users) {
-            if (user.getCode().equalsIgnoreCase(newUser.getCode()) && user.getRole() == Role.Student && !user.isDeleted()) {
+            if (user.getCode().equalsIgnoreCase(newUser.getCode())) {
                 System.out.println("Mã học sinh đã tồn tại.");
                 return; // Thoát khỏi phương thức nếu học sinh đã tồn tại
             }
@@ -123,7 +108,7 @@ public class UserManagement {
         double newScoreMath = sc.nextDouble();
         System.out.println("Nhâp điểm môn Anh:");
         double newScoreEnglish = sc.nextDouble();
-        boolean status = true;
+        boolean status = false;
         User newUser = new User(newCode, newFullName, newBirthDay, newGender, newAddress, newEmail, newPassword, Role.Student, status, newScoreMath, newScoreEnglish, newScoreLiterature);
 
         // Add the new user to the UserService
@@ -178,6 +163,7 @@ public class UserManagement {
                 user.setEmail(sc.nextLine());
                 System.out.print("Nhập mật khẩu:");
                 user.setPassword(sc.nextLine());
+                user.isDeleted();
                 updated = true;
                 System.out.println("Thông tin học sinh đã được cập nhật!!!");
                 break;
@@ -192,7 +178,7 @@ public class UserManagement {
         boolean found = false;
         for (User user : users) {
             if (user.getCode().equals(code) && user.getRole() == Role.Student) {
-                user.setDeleted(true);
+                user.isDeleted();
                 found = true;
                 System.out.println("Học sinh với mã " + code + " đã bị xóa!!!");
                 break;
@@ -265,6 +251,9 @@ public class UserManagement {
                     double score = Double.parseDouble(input);
                     user.setAdditionalScore(subjectCode, score); // For additional subjects
                     System.out.println("Điểm cho môn " + subjectCode + " đã được thêm cho học sinh " + user.getName());
+                    System.out.println("Điểm Văn:"+user.getLiteratureScore());
+                    System.out.println("Điểm Toán:"+user.getMathScore());
+                    System.out.println("Điểm Anh:"+user.getEnglishScore());
 
                     // Calculate and display average score
                     double averageScore = user.calculateAverageScore();
@@ -319,6 +308,9 @@ public class UserManagement {
                         }
 
                         System.out.println("Điểm cho môn " + subjectCode + " đã được cập nhật cho học sinh " + user.getName());
+                        System.out.println("Điểm Văn:"+user.getLiteratureScore());
+                        System.out.println("Điểm Toán:"+user.getMathScore());
+                        System.out.println("Điểm Anh:"+user.getEnglishScore());
                     } catch (NumberFormatException e) {
                         System.out.println("Điểm không hợp lệ! Hiện tại sẽ hiển thị điểm trung bình.");
                     }

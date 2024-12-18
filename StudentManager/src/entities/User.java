@@ -93,10 +93,7 @@ public class User{
         return role;
     }
     public boolean isDeleted(){ return isDeleted;}
-    public void setDeleted(boolean deleted)
-    {
-        isDeleted=deleted;
-    }
+
 
     public double getMathScore() {
         return mathScore;
