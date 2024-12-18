@@ -121,8 +121,8 @@ public class User{
     public void setLiteratureScore(double literatureScore) {
         this.literatureScore = literatureScore;
     }
-    public void addSpecialSubject(String subjectName) {
-        specialSubjects.add(subjectName);
+    public void addSpecialSubject(String subjectCode) {
+        specialSubjects.add(subjectCode);
     }
 
     public Set<String> getSpecialSubjects() {

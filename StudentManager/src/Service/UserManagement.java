@@ -104,6 +104,8 @@ public class UserManagement {
                 System.out.println("Toán: " + user.getMathScore());
                 System.out.println("Văn: " + user.getLiteratureScore());
                 System.out.println("Tiếng Anh: " + user.getEnglishScore());
+                System.out.println("Điểm trung bình: " + user.calculateAverageScore());
+
                 System.out.println();
             }
         }
@@ -210,12 +212,12 @@ public class UserManagement {
         Scanner sc = new Scanner(System.in);
         boolean found = false;
 
-        System.out.print("Nhập tên môn học đặc biệt để thêm: ");
-        String subjectName = sc.nextLine().trim(); // Trim whitespace
+        System.out.print("Nhập mã môn học đặc biệt để thêm: ");
+        String subjectCode = sc.nextLine(); // Trim whitespace
 
         // Check for empty input
-        if (subjectName.isEmpty()) {
-            System.out.println("Tên môn học không được để trống.");
+        if (subjectCode.isEmpty()) {
+            System.out.println("Mã môn học không được để trống.");
             return;
         }
 
@@ -224,10 +226,10 @@ public class UserManagement {
             if (user.getCode().equals(userCode) && user.getRole() == Role.Student) {
                 found = true;
                 // Add the special subject to the user's list of special subjects
-                user.addSpecialSubject(subjectName);
+                user.addSpecialSubject(subjectCode);
                 // Add the special subject with an initial score of 0.0
-                user.setAdditionalScore(subjectName, 0.0);
-                System.out.println("Môn " + subjectName + " đã được thêm cho học sinh " + user.getName());
+                user.setAdditionalScore(subjectCode, 0.0);
+                System.out.println("Môn " + subjectCode + " đã được thêm cho học sinh " + user.getName());
                 break;
             }
         }
@@ -242,8 +244,8 @@ public class UserManagement {
         Scanner sc = new Scanner(System.in);
         boolean found = false;
 
-        System.out.print("Nhập tên môn học đặc biệt: ");
-        String subjectName = sc.nextLine();
+        System.out.print("Nhập mã môn học đặc biệt: ");
+        String subjectCode = sc.nextLine();
 
         // Find the student by user code
         for (User user : users) {
@@ -251,18 +253,18 @@ public class UserManagement {
                 found = true;
 
                 // Check if the subject exists in the user's special subjects
-                if (!user.getAdditionalScores().containsKey(subjectName)) {
-                    System.out.println("Môn học " + subjectName + " không tồn tại cho học sinh này. Vui lòng thêm môn học trước.");
+                if (!user.getAdditionalScores().containsKey(subjectCode)) {
+                    System.out.println("Môn học " + subjectCode + " không tồn tại cho học sinh này. Vui lòng thêm môn học trước.");
                     return;
                 }
 
-                System.out.print("Nhập điểm cho môn " + subjectName + ": ");
+                System.out.print("Nhập điểm cho môn " + subjectCode + ": ");
                 String input = sc.nextLine();
 
                 try {
                     double score = Double.parseDouble(input);
-                    user.setAdditionalScore(subjectName, score); // For additional subjects
-                    System.out.println("Điểm cho môn " + subjectName + " đã được thêm cho học sinh " + user.getName());
+                    user.setAdditionalScore(subjectCode, score); // For additional subjects
+                    System.out.println("Điểm cho môn " + subjectCode + " đã được thêm cho học sinh " + user.getName());
 
                     // Calculate and display average score
                     double averageScore = user.calculateAverageScore();
