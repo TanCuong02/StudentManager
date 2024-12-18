@@ -41,9 +41,6 @@ public class Semester {
     public static final Semester hk124 = new Semester(1, 2024);
     public static final Semester hk224 = new Semester(2, 2024);
 
-    public Semester() {
-
-    }
 
     //xem mon hoc method
     public void showSujectList(){
@@ -111,7 +108,7 @@ public class Semester {
         announceSuccess();
 
         //display the list of studying
-        displayListSpecialSubjects();
+        displayStudyingListSubjects();
 
         //show what's next instruction
         displayMenu(specialSubject);
@@ -123,14 +120,14 @@ public class Semester {
         System.out.println(" ");
         System.out.println("Ban dang thuc hien chuc nang XOA mon hoc");
 
-        //implement deletesubject
-        implementAddSpecialSubject(specialSubject);
+        //implement delete
+        implementDeleteSpecialSubject();
 
         //Annouce success
         announceSuccess();
 
         //display the list of studying
-        displayListSpecialSubjects();
+        displayStudyingListSubjects();
 
         //show what's next instruction
         displayMenu(specialSubject);
@@ -204,7 +201,7 @@ public class Semester {
 
 
     //implement delete subject
-    public void implementdeleteSpecialSubject(){
+    public void implementDeleteSpecialSubject(){
         specialSubject = null;
     }
 
