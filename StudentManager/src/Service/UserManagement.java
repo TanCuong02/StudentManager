@@ -77,7 +77,7 @@ public class UserManagement {
         }
         // Nếu không tìm thấy, thêm học sinh mới vào danh sách
         users.add(newUser);
-        System.out.println("Đã thêm học sinh mới: " + newUser.getName());
+        System.out.println("Đã thêm học sinh mới");
     }
 
     public void displayStudentInfomation(String userCode) {
@@ -163,7 +163,6 @@ public class UserManagement {
         System.out.println("Nhâp điểm môn Anh:");
         String newScoreEnglish=sc.nextLine();
         boolean status = true;
-        System.out.println("Đã thêm học sinh mới!!!");
         User newUser = new User(newCode, newFullName, newBirthDay, newGender, newAddress, newEmail, newPassword, Role.Student, status, 0, 0, 0);
 
         // Add the new user to the UserService

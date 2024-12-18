@@ -61,7 +61,7 @@ public class SystemManage {
                     userService.addSpecialSubject(studentCodeForSpecialSubjectAdd);
                     break;
                 case 7:
-
+                    authentication.displayLogout();
                     break;
                 case 8:
                     System.out.print("Nhập mã học sinh để thêm điểm môn đặc biệt: ");
@@ -74,7 +74,7 @@ public class SystemManage {
                     userService.editScoreForSpecialSubject(studentCodeForEdit);
                     break;
                 case 10:
-                    authentication.Logout();
+                    authentication.displayLogout();
                     break;
                 case 11:
                     authentication.exit();
@@ -107,7 +107,7 @@ public class SystemManage {
                     userService.updateStudentInfomationByCode(userCode);
                     break;
                 case 3:
-                    authentication.Logout();
+                    authentication.displayLogout();
                     break;
                 case 4:
                     authentication.exit();

@@ -28,7 +28,7 @@ public class Authentication {
     }
 
 
-    public void Login() {
+    public void displayLogin() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("============= ĐĂNG NHẬP ==============");
         System.out.print("Nhập email: ");
@@ -59,11 +59,11 @@ public class Authentication {
             }
         } else {
             System.out.println("Đăng nhập không thành công!");
-            Login();
+            displayLogin();
         }
     }
 
-    public void Logout() {
+    public void displayLogout() {
         if (logged != null) {
             Scanner scanner = new Scanner(System.in);
             System.out.print("Bạn có chắc chắn muốn đăng xuất? (Yes/No): ");
@@ -72,12 +72,12 @@ public class Authentication {
             if (response.equals("yes")) {
                 System.out.println("Đăng xuất thành công");
                 logged = null;
-                Login();
+                displayLogin();
             } else if (response.equals("no")) {
                 menu.menuFunctionForTeacher();
             } else {
                 System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập 'Yes' hoặc 'No'.");
-                Logout();
+                displayLogout();
             }
         } else {
             System.out.println("Không có người dùng nào đang đăng nhập!");
@@ -94,7 +94,7 @@ public class Authentication {
             menu.menuFunctionForTeacher();
         } else {
             System.out.println("Lựa chọn không hợp lệ! Vui lòng nhập 'Yes' hoặc 'No'.");
-            Logout();
+            System.exit(0);
         }
     }
 

@@ -15,7 +15,6 @@ public class User{
     protected String password;
     protected Role role;
     protected boolean isDeleted;
-
     protected double mathScore = 0;
     protected double englishScore= 0;
     protected double literatureScore= 0;
