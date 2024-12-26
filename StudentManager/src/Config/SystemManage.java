@@ -1,7 +1,6 @@
 package Config;
 
 import Service.Authentication;
-import Service.SubjectManagement;
 import Service.UserManagement;
 import entities.Semester;
 import entities.User;
